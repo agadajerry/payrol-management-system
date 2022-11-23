@@ -118,7 +118,7 @@ function SignupPage({ ...props }) {
                     <div className="mb-2 new-member">
                       <h3 className="new-member-title">
                         Already a member ?{" "}
-                        <span onClick={() => navigate("/login")}>Login</span>
+                        <span onClick={() => navigate("/")}>Login</span>
                       </h3>
                     </div>
                   </div>
