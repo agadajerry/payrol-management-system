@@ -1,0 +1,276 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.layouts-container {
+    height: 100vh;
+    width: 100vw;
+    background-color: #f5f5f5;
+}
+
+.nav-container {
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+/* nav-list */
+
+.nav-container img {
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+    border-radius: 10px;
+    overflow: hidden;
+    ;
+}
+
+.nav-list-items {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.nav-list-items li {
+    margin: 0 10px;
+    padding: 10px;
+}
+
+.nav-list-items li.active {
+    border-bottom: 2px solid #395ee3;
+}
+
+.nav-list-items li a {
+    text-decoration: none;
+    color: #000;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.nav-list-items li a:hover {
+    color: #f00;
+}
+
+.app-owner {
+    font-size: 24px;
+    font-weight: bolder;
+    letter-spacing: 2px;
+    border: 2px solid #d51a40;
+    border-radius: 4px;
+    padding: 3px;
+}
+
+.input-holder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f1f1f1;
+    padding: 5px;
+}
+
+.input-holder p {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 600;
+    margin-right: 10px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.used-icon {
+    color: #d51a40;
+}
+
+
+/* button-container */
+
+.button-container {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.button-container .app-btn {
+    height: 50px;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.button-container .app-btn:hover {
+    opacity: 0.8;
+}
+
+
+/* center-content */
+
+.center-content {
+    width: 70%;
+    margin: 20px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.image-login-holder {
+    border-right: 1px solid #ccc;
+}
+
+.image-login-holder:hover {
+    border-right: 1px solid #d51a40;
+    opacity: 0.8;
+}
+
+.image-login-holder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* login-form-holder */
+
+.login-form-holder {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.login-form-holder h3 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.login-form-holder .icon-hoder {
+    width: 10%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: auto;
+}
+
+.icon-hoder .social-icons {
+    color: #d51a40;
+    cursor: pointer;
+    background-color: transparent;
+    margin-left: 5px;
+}
+
+.label-style {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+
+/* remember-holder */
+
+.remember-holder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.remember-holder .forgot-btn {
+    cursor: pointer;
+    margin-top: 3px;
+}
+
+.remember-holder .forgot-btn h4 {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: capitalize;
+    color: #d51a40;
+}
+
+
+/* new-member */
+
+.new-member {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.new-member .new-member-title {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: capitalize;
+    margin-right: 5px;
+}
+
+.new-member .new-member-title span {
+    color: #d51a40;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+@media (max-width:745px) {
+    .center-content {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        top: 0px;
+        left: 0;
+        transform: translate(0, 0);
+        box-shadow: none;
+    }
+    .image-login-holder {
+        display: none;
+    }
+    .login-form-holder {
+        padding: 10px 0;
+    }
+    .login-form-holder h3 {
+        font-size: 16px;
+    }
+    .label-style {
+        font-size: 12px;
+    }
+    .remember-holder {
+        padding: 10px 0;
+    }
+    .remember-holder .forgot-btn h4 {
+        font-size: 12px;
+    }
+    .new-member {
+        padding: 10px 0;
+    }
+    .new-member .new-member-title {
+        font-size: 12px;
+    }
+    .new-member .new-member-title span {
+        font-size: 12px;
+    }
+    .icon-hoder .social-icons {
+        margin-left: 5px;
+    }
+    .nav-container {
+        flex-direction: column;
+    }
+    .nav-list-items {
+        flex-direction: column;
+        width: 100%;
+        margin-top: 30px;
+        background-color: red;
+    }
+}
