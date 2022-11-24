@@ -71,7 +71,7 @@ function LoginPage({ ...props }) {
                         id="remember-me"
                       />
                       <label className="form-check-label" htmlFor="remember-me">
-                        Check me out
+                        Remember me
                       </label>
                     </div>
                     <div className=" forgot-btn">
@@ -89,7 +89,7 @@ function LoginPage({ ...props }) {
                   </div>
                   <div className="mb-3 new-member">
                     <h3 className="new-member-title">
-                      Not a member ?{" "}
+                      Not yet sign up ?{" "}
                       <span onClick={() => navigate("/sign-up")}>Sign up</span>
                     </h3>
                   </div>

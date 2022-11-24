@@ -17,47 +17,6 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-
-/* nav-list */
-
-.nav-container img {
-    height: 50px;
-    width: 50px;
-    object-fit: cover;
-    border-radius: 10px;
-    overflow: hidden;
-    ;
-}
-
-.nav-list-items {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    list-style: none;
-    padding: 10px;
-    margin-top: 10px;
-}
-
-.nav-list-items li {
-    margin: 0 10px;
-    padding: 10px;
-}
-
-.nav-list-items li.active {
-    border-bottom: 2px solid #395ee3;
-}
-
-.nav-list-items li a {
-    text-decoration: none;
-    color: #000;
-    font-size: 1.2rem;
-    font-weight: 500;
-}
-
-.nav-list-items li a:hover {
-    color: #f00;
-}
-
 .app-owner {
     font-size: 24px;
     font-weight: bolder;
@@ -118,8 +77,16 @@
     width: 70%;
     margin: 20px auto;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.login-form-container {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
@@ -155,7 +122,6 @@
 }
 
 .login-form-holder .icon-hoder {
-    width: 10%;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -168,6 +134,8 @@
     cursor: pointer;
     background-color: transparent;
     margin-left: 5px;
+    width: 25px;
+    height: 25px;
 }
 
 .label-style {
@@ -224,15 +192,62 @@
     margin-left: 10px;
 }
 
+
+/* upload-container */
+
+.upload-container {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.upload-container .upload-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #d51a40;
+    text-transform: uppercase;
+}
+
+.picker-files {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.picker-files .picker-box {
+    width: 100%;
+    height: 200px;
+    border: 1px dashed #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.picker-icon-holder {
+    cursor: pointer;
+}
+
+.picker-icon-holder:hover {
+    opacity: 0.8;
+    color: #d51a40;
+}
+
 @media (max-width:745px) {
     .center-content {
+        flex-direction: column;
         width: 100%;
-        height: 100%;
-        position: relative;
-        top: 0px;
-        left: 0;
-        transform: translate(0, 0);
-        box-shadow: none;
+        /* box-shadow: none; */
+    }
+    .login-form-container {
+        width: 100%;
     }
     .image-login-holder {
         display: none;
