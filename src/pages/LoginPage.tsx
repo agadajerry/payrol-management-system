@@ -9,6 +9,7 @@ import AppLabel from "../components/AppLabel";
 import { useNavigate } from "react-router-dom";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
+import LoadingScreen from "./LoadingScreen";
 
 function LoginPage({ ...props }) {
   const validationSchema = Yup.object().shape({
@@ -23,6 +24,7 @@ function LoginPage({ ...props }) {
   };
   return (
     <div className="container">
+      {/* <LoadingScreen/> */}
       <Formik
         initialValues={{ email: "", password: "" }}
         onSubmit={(values) => {}}
