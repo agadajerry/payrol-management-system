@@ -53,7 +53,7 @@ function LoginPage({ ...props }) {
                       placeholder="Email"
                       type="email"
                       name="email"
-                      icon={<AiOutlineMail size={20} />}
+                      icon={<AiOutlineMail size={25} />}
                     />
                   </div>
                   <div className="mb-3">
@@ -62,7 +62,7 @@ function LoginPage({ ...props }) {
                       placeholder="password"
                       type="password"
                       name="password"
-                      icon={<AiOutlineLock size={20} />}
+                      icon={<AiOutlineLock size={25} />}
                     />
                   </div>
                   <div className="remember-holder text-center">

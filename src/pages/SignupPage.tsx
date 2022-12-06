@@ -75,7 +75,7 @@ function SignupPage({ ...props }) {
                       placeholder="Company name"
                       type="text"
                       name="company_name"
-                      icon={<FaIndustry size={20} />}
+                      icon={<FaIndustry size={25} />}
                     />
                   </div>
 
@@ -85,7 +85,7 @@ function SignupPage({ ...props }) {
                       placeholder="Phone Number"
                       type="tel"
                       name="phone_number"
-                      icon={<BsFillTelephoneFill size={20} />}
+                      icon={<BsFillTelephoneFill size={25} />}
                     />
                   </div>
                   <div className="col-md-6">
@@ -94,7 +94,7 @@ function SignupPage({ ...props }) {
                       placeholder="Website"
                       type="url"
                       name="url"
-                      icon={<CgWebsite size={20} />}
+                      icon={<CgWebsite size={25} />}
                     />
                   </div>
                   <div className="col-md-6">
@@ -103,7 +103,7 @@ function SignupPage({ ...props }) {
                       placeholder="Email"
                       type="email"
                       name="email"
-                      icon={<AiOutlineMail size={20} />}
+                      icon={<AiOutlineMail size={25} />}
                     />
                   </div>
                   <div className="col-md-6">
@@ -112,7 +112,7 @@ function SignupPage({ ...props }) {
                       placeholder="password"
                       type="password"
                       name="password"
-                      icon={<AiOutlineLock size={20} />}
+                      icon={<AiOutlineLock size={25} />}
                     />
                   </div>
                   <div className="col-md-6">
@@ -121,7 +121,7 @@ function SignupPage({ ...props }) {
                       placeholder="Confirm password"
                       type="password"
                       name="cpassword"
-                      icon={<AiOutlineLock size={20} />}
+                      icon={<AiOutlineLock size={25} />}
                     />
                   </div>
                   <div className="col-md-6">
@@ -130,7 +130,7 @@ function SignupPage({ ...props }) {
                       placeholder="Address"
                       type="text"
                       name="address"
-                      icon={<FaAddressCard size={20} />}
+                      icon={<FaAddressCard size={25} />}
                     />
                   </div>
                   <div className="col-md-6"></div>
