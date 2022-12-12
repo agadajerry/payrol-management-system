@@ -1,6 +1,7 @@
 import React from "react";
 
-function LoadingScreen() {
+function LoadingScreen({ ...props }) {
+  if (!props.loading) return null;
   return (
     <div className="loading-content">
       <div
