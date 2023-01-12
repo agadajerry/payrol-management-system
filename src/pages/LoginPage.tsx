@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AppInput from "../components/AppInput";
 import colors from "../config/colors";
 import { FaFacebookSquare, FaTwitterSquare } from "react-icons/fa";
@@ -10,6 +10,9 @@ import { useNavigate } from "react-router-dom";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import LoadingScreen from "./LoadingScreen";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../redux/authReducerSlice";
+import logo from "../assets/images/logo.png";
 
 function LoginPage({ ...props }) {
   const validationSchema = Yup.object().shape({
@@ -17,20 +20,26 @@ function LoginPage({ ...props }) {
     password: Yup.string().required("Password is required"),
   });
   const navigate = useNavigate();
-
-  const handleLogin = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    navigate("/home");
+  const dispatch = useDispatch();
+  const { loading, error, success_msg } = useSelector(
+    (state: any) => state.authReducer
+  );
+  const handleLogin = (values: any) => {
+    dispatch(login(values));
   };
+
   return (
     <div className="container">
-      {/* <LoadingScreen/> */}
+      <LoadingScreen loading={loading} />
       <Formik
         initialValues={{ email: "", password: "" }}
-        onSubmit={(values) => {}}
+        onSubmit={(values) => {
+          handleLogin(values);
+        }}
         validationSchema={validationSchema}
       >
         <div className="center-content">
+          <h4 className="text-danger fs-5">{success_msg}</h4>
           <div className="row">
             <div className="col-md-6 image-login-holder">
               <img src={payrollIcon} alt="" />
@@ -38,8 +47,10 @@ function LoginPage({ ...props }) {
 
             <div className="col-md-6">
               <div className="login-form-holder">
-                <h3>Sigin in</h3>
-                <h4 className="app-owner">UpTurn</h4>
+                <h3 className="title-text">Login</h3>
+                <h3 className="logoholder">
+                  <img src={logo} alt="logo" />
+                </h3>
                 <div className="icon-hoder">
                   <FaFacebookSquare size={25} className="social-icons" />
                   <FaTwitterSquare size={25} className="social-icons" />

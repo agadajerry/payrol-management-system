@@ -16,15 +16,18 @@ import { useNavigate } from "react-router-dom";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useSelector, useDispatch } from "react-redux";
-import { IRegisteration } from "../utils/interfaces";
 import { registerUser } from "../redux/authReducerSlice";
 import LoadingScreen from "./LoadingScreen";
+import logo from "../assets/images/logo.png";
 
-function SignupPage({ ...props }) {
+function SignupPage() {
   const dispatch = useDispatch();
-  const { loading, error } = useSelector((state: any) => state.authReducer);
+  const { loading, error, success_msg } = useSelector(
+    (state: any) => state.authReducer
+  );
+  // console.log(loading, error);
 
-  const handleSignup = (values: IRegisteration) => {
+  const handleSignup = (values: any) => {
     dispatch(registerUser(values));
   };
 
@@ -64,8 +67,10 @@ function SignupPage({ ...props }) {
       <div className="container">
         <div className="login-form-container">
           <div className="login-form-holder">
-            <h3>Sigin up</h3>
-            <h4 className="app-owner">UpTurn</h4>
+            <h3 className="title-text">Sigin up</h3>
+            <h3 className="logoholder">
+              <img src={logo} alt="logo" />
+            </h3>
             <div className="icon-hoder">
               <FaFacebookSquare className="social-icons" />
               <FaTwitterSquare className="social-icons" />
@@ -81,6 +86,7 @@ function SignupPage({ ...props }) {
             {({ handleSubmit }) => (
               <Form>
                 <div className="container p-3">
+                  <h4 className="text-danger fs-5">{success_msg}</h4>
                   <h4 className="text-danger fs-5">{error}</h4>
                   <div className="row">
                     <div className="col-md-6">
