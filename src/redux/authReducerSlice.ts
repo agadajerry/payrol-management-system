@@ -3,20 +3,43 @@ import apiClient from "../api/clients";
 
 export const login: any = createAsyncThunk(
   "auth/login",
-  async (props: any, { rejectWithValue }) => {
+  async (formValues: any, thunkApi) => {
+    const signInData = {
+      password: formValues.password,
+      email: formValues.email,
+    };
     try {
-      const response = await apiClient.post("/login", props.formValues);
-      return response.data;
+      const response: any = await apiClient.post(
+        "/sign-in",
+        JSON.stringify(signInData)
+      );
+      if (response.data.auth_id) {
+        localStorage.setItem(
+          "payrol_key",
+          JSON.stringify(response.data.auth_id)
+        );
+        window.location.href = "/home";
+        return response.data;
+      }
+      return thunkApi.rejectWithValue(response.data);
     } catch (err: any) {
-      return rejectWithValue(err.response.data);
+      return thunkApi.rejectWithValue(err.response.data);
     }
   }
 );
 export const registerUser: any = createAsyncThunk(
   "auth/register",
-  async (props: any, { rejectWithValue }) => {
+  async (formValues: any, { rejectWithValue }) => {
+    const formValue = {
+      password: formValues.password,
+      website: formValues.website,
+      name: formValues.name,
+      address: formValues.address,
+      phone_no: formValues.phone_no,
+      email: formValues.email,
+    };
     try {
-      const response = await apiClient.post("/sign-up", props.formValues);
+      const response = await apiClient.post("/sign-up", formValue);
       return response.data;
     } catch (err: any) {
       return rejectWithValue(err.response.data);
@@ -50,11 +73,11 @@ export const authSlice = createSlice({
     });
     builder.addCase(login.fulfilled, (state, action) => {
       state.loading = false;
-      state.success_msg = action.payload.message;
+      state.success_msg = action.payload.msg;
     });
     builder.addCase(login.rejected, (state, action) => {
       state.loading = false;
-      state.error = action.payload.message;
+      state.error = action.payload;
     });
 
     // Register User
@@ -63,11 +86,11 @@ export const authSlice = createSlice({
     });
     builder.addCase(registerUser.fulfilled, (state, action) => {
       state.loading = false;
-      state.success_msg = action.payload.message;
+      state.success_msg = action.payload.msg;
     });
     builder.addCase(registerUser.rejected, (state, action) => {
       state.loading = false;
-      state.error = "Error has occurred";
+      state.error = "Something went wrong";
     });
   },
 });

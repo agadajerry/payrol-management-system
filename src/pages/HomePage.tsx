@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { IoCloudUploadOutline } from "react-icons/io5";
-import axios from "axios";
 import moment from "moment";
 import AppButton from "../components/AppButton";
-import AppSelect from "../components/AppSelect";
 import Layout from "../components/Layout";
 import colors from "../config/colors";
 import { monthWord, years } from "../utils/helpers";
+import { useDispatch, useSelector } from "react-redux";
+import { excelFileUpload } from "../redux/appReducerSlice";
 
 function HomePage() {
   const [month, setMonth] = React.useState("");
@@ -16,6 +16,14 @@ function HomePage() {
     statusClass: "status",
     statusMsg: "",
   });
+
+  const dispatch = useDispatch();
+  const { loading, error, success_msg } = useSelector(
+    (state: any) => state.appReducer
+  );
+
+  console.log(error, loading, success_msg);
+
   const year = years();
 
   const uploadFile = (e: any) => {
@@ -24,7 +32,7 @@ function HomePage() {
     setFileData(fileSelected);
   };
 
-  const formData = new FormData();
+  const formData: any = new FormData();
   const handleFileUpload = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
@@ -32,26 +40,17 @@ function HomePage() {
       alert("Please select month and year");
       return;
     }
+    formData.append("month", month);
+    formData.append("year", getyear);
+    formData.append("file_name", fileData as File);
 
-    try {
-      formData.append("month", month);
-      formData.append("year", getyear);
-      formData.append("file_path", fileData as File);
+    const formValue = {
+      month,
+      year: getyear,
+      file_name: fileData as File,
+    };
 
-      // const result = await axios.post("base_url", formData, {
-      //   headers: {
-      //     "Accept-Language": "en-US,en;q=0.8",
-      //     "Content-Type": `multipart/form-data`,
-      //   },
-      // });
-      setSendStatsus({
-        statusClass: "alert alert-success",
-        statusMsg: "File uploaded successfully",
-      });
-      setFileData(null);
-    } catch (err: any) {
-      throw new Error(err.message);
-    }
+    dispatch(excelFileUpload(formValue));
   };
 
   const today = new Date();
@@ -118,17 +117,9 @@ function HomePage() {
               <div className="picker-box">
                 <div className="picker-icon-holder">
                   <div className="">
-                    {fileData?.name.split(".xls" || ".csv" || ".xlsx")[0] ? (
-                      <AppButton
-                        bg_color={colors.primary}
-                        label={"Upload now"}
-                        onClick={handleFileUpload}
-                      />
-                    ) : (
-                      <label htmlFor="file_path">
-                        <IoCloudUploadOutline size={30} />
-                      </label>
-                    )}
+                    <label htmlFor="file_path">
+                      <IoCloudUploadOutline size={30} />
+                    </label>
                   </div>
                   <p style={{ display: "none" }}>
                     <input
@@ -144,6 +135,18 @@ function HomePage() {
               </div>
             </div>
             <p className={sendStatsus.statusClass}>{sendStatsus.statusMsg}</p>
+            <div className="container text-center">
+              <p className="text-center mt-2">
+                {fileData?.name?.substring(0, 10) + "..."}
+              </p>
+              {fileData?.name.split(".xls" || ".csv" || ".xlsx")[0] && (
+                <AppButton
+                  bg_color={colors.primary}
+                  label={"Upload now"}
+                  onClick={handleFileUpload}
+                />
+              )}
+            </div>
           </div>
           <div className="col-md-2"></div>
         </div>

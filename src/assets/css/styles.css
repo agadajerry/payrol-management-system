@@ -17,15 +17,6 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.app-owner {
-    font-size: 24px;
-    font-weight: bolder;
-    letter-spacing: 2px;
-    border: 2px solid #d51a40;
-    border-radius: 4px;
-    padding: 3px;
-}
-
 .input-holder {
     display: flex;
     align-items: center;
@@ -135,7 +126,18 @@
     margin-bottom: 10px;
 }
 
-.login-form-holder h3 {
+.login-form-holder .logoholder {
+    text-align: center;
+}
+
+.login-form-holder .logoholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    text-align: center;
+}
+
+.login-form-holder .title-text {
     font-size: 20px;
     font-weight: 600;
 }
@@ -261,7 +263,7 @@
 
 .loading-content {
     width: 100%;
-    height: 100vh;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -271,6 +273,17 @@
     position: absolute;
     top: 0;
     left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.nav-item .logout {
+    cursor: pointer;
+    color: #002;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: capitalize;
+    margin-left: 10px;
 }
 
 @media (max-width:745px) {
