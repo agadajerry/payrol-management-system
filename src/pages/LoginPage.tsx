@@ -24,6 +24,7 @@ function LoginPage({ ...props }) {
   const { loading, error, success_msg } = useSelector(
     (state: any) => state.authReducer
   );
+
   const handleLogin = (values: any) => {
     dispatch(login(values));
   };
@@ -39,7 +40,8 @@ function LoginPage({ ...props }) {
         validationSchema={validationSchema}
       >
         <div className="center-content">
-          <h4 className="text-danger fs-5">{success_msg}</h4>
+          {/* <h4 className="text-danger fs-5">{success_msg}</h4> */}
+          {/* <h4 className="text-danger fs-5">{error}</h4> */}
           <div className="row">
             <div className="col-md-6 image-login-holder">
               <img src={payrollIcon} alt="" />

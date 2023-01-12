@@ -7,6 +7,7 @@ import colors from "../config/colors";
 import { monthWord, years } from "../utils/helpers";
 import { useDispatch, useSelector } from "react-redux";
 import { excelFileUpload } from "../redux/appReducerSlice";
+import LoadingScreen from "./LoadingScreen";
 
 function HomePage() {
   const [month, setMonth] = React.useState("");
@@ -58,6 +59,7 @@ function HomePage() {
   return (
     <Layout>
       <div className="container mt-2">
+      <LoadingScreen loading={loading} />
         <div className="row">
           <div className="col-md-2"></div>
           <div className="col-md-8 upload-container">
@@ -137,7 +139,9 @@ function HomePage() {
             <p className={sendStatsus.statusClass}>{sendStatsus.statusMsg}</p>
             <div className="container text-center">
               <p className="text-center mt-2">
-                {fileData?.name?.substring(0, 10) + "..."}
+                {fileData?.name === undefined
+                  ? " No file is picked yet"
+                  : fileData?.name.substring(0, 10) + "..."}
               </p>
               {fileData?.name.split(".xls" || ".csv" || ".xlsx")[0] && (
                 <AppButton

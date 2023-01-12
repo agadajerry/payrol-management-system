@@ -13,15 +13,13 @@ export const login: any = createAsyncThunk(
         "/sign-in",
         JSON.stringify(signInData)
       );
-      if (response.data.auth_id) {
-        localStorage.setItem(
-          "payrol_key",
-          JSON.stringify(response.data.auth_id)
-        );
-        window.location.href = "/home";
-        return response.data;
+
+      if (!response.data.auth_id) {
+        return thunkApi.rejectWithValue(response.data);
       }
-      return thunkApi.rejectWithValue(response.data);
+      localStorage.setItem("payrol_key", JSON.stringify(response.data.auth_id));
+      window.location.href = "/home";
+      return response.data;
     } catch (err: any) {
       return thunkApi.rejectWithValue(err.response.data);
     }
@@ -73,7 +71,8 @@ export const authSlice = createSlice({
     });
     builder.addCase(login.fulfilled, (state, action) => {
       state.loading = false;
-      state.success_msg = action.payload.msg;
+      state.success_msg = action.payload;
+    
     });
     builder.addCase(login.rejected, (state, action) => {
       state.loading = false;
