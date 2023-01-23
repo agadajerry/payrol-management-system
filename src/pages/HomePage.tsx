@@ -23,8 +23,6 @@ function HomePage() {
     (state: any) => state.appReducer
   );
 
-  console.log(error, loading, success_msg);
-
   const year = years();
 
   const uploadFile = (e: any) => {
@@ -55,11 +53,13 @@ function HomePage() {
   };
 
   const today = new Date();
+  console.log(loading);
+
+  // if (loading) return <LoadingScreen />;
 
   return (
     <Layout>
       <div className="container mt-2">
-      <LoadingScreen loading={loading} />
         <div className="row">
           <div className="col-md-2"></div>
           <div className="col-md-8 upload-container">

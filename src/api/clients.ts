@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://upturnpayroll.pupilate.com",
+  baseURL: "http://localhost:4000/api/v1/auth",
   headers: {
     "Content-Type": "application/json",
   },

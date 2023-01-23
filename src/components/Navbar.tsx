@@ -1,25 +1,27 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import jwtDecode from "jwt-decode";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  useEffect(() => {
-    const token_key = localStorage.getItem("payrol_key") || "";
-    const token = JSON.parse(token_key);
-    if (!token) {
-      localStorage.removeItem("token");
-      navigate("/");
-    }
-  }, []);
+  const { logout, isAuthenticated } = useSelector(
+    (state: any) => state.authReducer
+  );
+
+  const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   if (!isAuthenticated) {
+  //     navigate("/");
+  //   }
+  // }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("payrol_key");
-    navigate("/");
+    dispatch(logout());
   };
 
   const { pathname } = location;

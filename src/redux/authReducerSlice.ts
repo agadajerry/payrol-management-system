@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../api/clients";
+import authService from "./authServices";
+import axios from "axios"
 
 export const login: any = createAsyncThunk(
   "auth/login",
@@ -9,19 +11,18 @@ export const login: any = createAsyncThunk(
       email: formValues.email,
     };
     try {
-      const response: any = await apiClient.post(
-        "/sign-in",
-        JSON.stringify(signInData)
-      );
+      const result = await authService.login(signInData);
+      return result;
+    } catch (error: any) {
 
-      if (!response.data.auth_id) {
-        return thunkApi.rejectWithValue(response.data);
-      }
-      localStorage.setItem("payrol_key", JSON.stringify(response.data.auth_id));
-      window.location.href = "/home";
-      return response.data;
-    } catch (err: any) {
-      return thunkApi.rejectWithValue(err.response.data);
+        const message =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+
+      return thunkApi.rejectWithValue("Error has occured.");
     }
   }
 );
@@ -31,30 +32,36 @@ export const registerUser: any = createAsyncThunk(
     const formValue = {
       password: formValues.password,
       website: formValues.website,
-      name: formValues.name,
+      company_name: formValues.company_name,
       address: formValues.address,
       phone_no: formValues.phone_no,
       email: formValues.email,
     };
     try {
-      const response = await apiClient.post("/sign-up", formValue);
-      return response.data;
-    } catch (err: any) {
-      return rejectWithValue(err.response.data);
+      return await authService.register(formValue);
+    } catch (error: any) {
+
+          const message =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+      return rejectWithValue("Error has occured.");
     }
   }
 );
 
+export const logout = createAsyncThunk("auth/logout", async () => {
+  return await authService.logout();
+});
+
 const initalValue = {
-  password: "",
-  website: "",
-  name: "",
-  address: "",
-  phone_no: "",
-  email: "",
   loading: false,
-  error: "",
-  success_msg: "",
+  isError: false,
+  isSuccess: false,
+  message: "",
+  userToken: null,
 };
 
 export const authSlice = createSlice({
@@ -62,6 +69,15 @@ export const authSlice = createSlice({
   initialState: initalValue,
   reducers: {
     setCurrentPage: () => {},
+
+    reset: (state) => {
+      state.loading = false;
+      state.isError = false;
+      state.loading = false;
+      state.isSuccess = false;
+      state.message = "";
+      state.isError = false;
+    },
   },
 
   extraReducers: (builder) => {
@@ -71,12 +87,16 @@ export const authSlice = createSlice({
     });
     builder.addCase(login.fulfilled, (state, action) => {
       state.loading = false;
-      state.success_msg = action.payload;
-    
+      state.isSuccess = true;
+      state.userToken = action.payload;
+      state.isError = false;
     });
     builder.addCase(login.rejected, (state, action) => {
       state.loading = false;
-      state.error = action.payload;
+      state.isError = true;
+      state.isSuccess = false;
+      state.message = action.payload;
+      state.userToken = null;
     });
 
     // Register User
@@ -85,13 +105,28 @@ export const authSlice = createSlice({
     });
     builder.addCase(registerUser.fulfilled, (state, action) => {
       state.loading = false;
-      state.success_msg = action.payload.msg;
+      state.message = "Registered successful. You can login now";
+      state.userToken = action.payload;
     });
     builder.addCase(registerUser.rejected, (state, action) => {
       state.loading = false;
-      state.error = "Something went wrong";
+      state.isError = true;
+      state.message = action.payload;
+      state.userToken = null;
+    });
+
+    // Logout
+    builder.addCase(logout.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(logout.fulfilled, (state, action) => {
+      state.loading = false;
+      state.isError = false;
+      state.userToken = null;
     });
   },
 });
+
+export const { reset } = authSlice.actions;
 
 export default authSlice.reducer;

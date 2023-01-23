@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AppInput from "../components/AppInput";
 import colors from "../config/colors";
 import {
@@ -16,18 +16,34 @@ import { useNavigate } from "react-router-dom";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useSelector, useDispatch } from "react-redux";
-import { registerUser } from "../redux/authReducerSlice";
+import { registerUser, reset } from "../redux/authReducerSlice";
 import LoadingScreen from "./LoadingScreen";
 import logo from "../assets/images/logo.png";
+import { toast } from "react-toastify";
 
 function SignupPage() {
   const dispatch = useDispatch();
-  const { loading, error, success_msg } = useSelector(
+  const { loading, isError, message, isSuccess,userToken } = useSelector(
     (state: any) => state.authReducer
   );
-  // console.log(loading, error);
+
+  const navigate = useNavigate();
+
+
+  useEffect(() => {
+
+    if (isError) { 
+      toast.error(message);
+    }
+    if (isSuccess || userToken) {
+      navigate("/home");
+    }
+    dispatch(reset())
+  }, [navigate, isSuccess,isError,message]);
 
   const handleSignup = (values: any) => {
+    values.defaultPrevented = true;
+  
     dispatch(registerUser(values));
   };
 
@@ -45,7 +61,7 @@ function SignupPage() {
     phone_no: Yup.string()
       .min(11, "Phone number must be at least 11 characters")
       .required("Phone number must be at least 11 characters"),
-    name: Yup.string().required("Company name is required"),
+    company_name: Yup.string().required("Company name is required"),
     address: Yup.string().required("Address is required"),
   });
 
@@ -55,11 +71,10 @@ function SignupPage() {
     cpassword: "",
     website: "",
     phone_no: "",
-    name: "",
+    company_name: "",
     address: "",
   };
 
-  const navigate = useNavigate();
   return (
     <>
       <LoadingScreen loading={loading} />
@@ -86,15 +101,19 @@ function SignupPage() {
             {({ handleSubmit }) => (
               <Form>
                 <div className="container p-3">
-                  <h4 className="text-danger fs-5">{success_msg}</h4>
-                  <h4 className="text-danger fs-5">{error}</h4>
+                  <h4 className="text-danger fs-5">
+                    {isSuccess && "You have signup successfully..."}
+                  </h4>
+                  <h4 className="text-danger fs-5">
+                    {isError && "Error has occured"}
+                  </h4>
                   <div className="row">
                     <div className="col-md-6">
                       <AppLabel label="Company name" />
                       <AppInput
                         placeholder="Company name"
                         type="text"
-                        name="name"
+                        name="company_name"
                         icon={<FaIndustry size={25} />}
                       />
                     </div>
@@ -160,7 +179,7 @@ function SignupPage() {
                         bg_color={colors.primary}
                         width="100%"
                         type="submit"
-                        onClick={handleSubmit}
+                       
                       />
                     </div>
                     <div className="col-md-6 new-member">

@@ -1,6 +1,13 @@
 import React from "react";
 import { Button } from "react-bootstrap";
-function AppButton({ label, type, onClick, bg_color, width }: any) {
+function AppButton({
+  label,
+  type,
+  onClick,
+  bg_color,
+  width,
+  isSubmitting,
+}: any) {
   return (
     <div className="button-container">
       <Button
