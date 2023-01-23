@@ -116,7 +116,7 @@ function LoginPage({ ...props }) {
                         <h4>Forgot password</h4>
                       </div>
                     </div>
-                    <h4 className="text-danger fs-6">sfd</h4>
+                    <h4 className="text-danger fs-6"></h4>
                     <div className="mb-3">
                       <AppButton
                         label="Login"
@@ -142,7 +142,6 @@ function LoginPage({ ...props }) {
           </div>
         )}
       </Formik>
-     
       <LoadingScreen loading={loading} />;
     </div>
   );
